@@ -886,6 +886,35 @@ type GPUTextureSamplerBinding struct {
 	Sampler *GPUSampler // The sampler to bind.
 }
 
+// [GPUBlitInfo] is a structure containing parameters for a blit command.
+//
+// [GPUBlitInfo]: https://wiki.libsdl.org/SDL3/SDL_GPUBlitInfo
+type GPUBlitInfo struct {
+	Source      GPUBlitRegion // The source region for the blit.
+	Destination GPUBlitRegion // The destination region for the blit.
+	LoadOp      GPULoadOp     // What is done with the contents of the destination before the blit.
+	ClearColor  FColor        // The color to clear the destination region to before the blit. Ignored if load_op is not SDL_GPU_LOADOP_CLEAR.
+	FlipMode    FlipMode      // The flip mode for the source region.
+	Filter      GPUFilter     // The filter mode used when blitting.
+	Cycle       bool          // true cycles the destination texture if it is already bound.
+	_           uint8
+	_           uint8
+	_           uint8
+}
+
+// [GPUBlitRegion] is a structure specifying a region of a texture used in the blit operation.
+//
+// [GPUBlitRegion]: https://wiki.libsdl.org/SDL3/SDL_GPUBlitRegion
+type GPUBlitRegion struct {
+	Texture           *GPUTexture // The texture.
+	MipLevel          uint32      // The mip level index of the region.
+	LayerOrDepthPlane uint32      // The layer index or depth plane of the region. This value is treated as a layer index on 2D array and cube textures, and as a depth plane on 3D textures.
+	X                 uint32      // The left offset of the region.
+	Y                 uint32      // The top offset of the region.
+	W                 uint32      // The width of the region.
+	H                 uint32      // The height of the region.
+}
+
 // [AcquireGPUCommandBuffer] acquires a command buffer.
 //
 // [AcquireGPUCommandBuffer]: https://wiki.libsdl.org/SDL3/SDL_AcquireGPUCommandBuffer
@@ -946,8 +975,11 @@ func BindGPUFragmentSamplers(renderPass *GPURenderPass, firstSlot uint32, textur
 	sdlBindGPUFragmentSamplers(renderPass, firstSlot, textureSamplerBindings, numBindings)
 }
 
-func BindGPUFragmentStorageBuffers(render_pass *GPURenderPass, first_slot uint32, storage_buffers **GPUBuffer, num_bindings uint32) {
-	sdlBindGPUFragmentStorageBuffers(render_pass, first_slot, storage_buffers, num_bindings)
+// [BindGPUFragmentStorageBuffers] binds storage buffers for use on the fragment shader.
+//
+// [BindGPUFragmentStorageBuffers]: https://wiki.libsdl.org/SDL3/SDL_BindGPUFragmentStorageBuffers
+func BindGPUFragmentStorageBuffers(renderPass *GPURenderPass, firstSlot uint32, storageBuffers **GPUBuffer, numBindings uint32) {
+	sdlBindGPUFragmentStorageBuffers(renderPass, firstSlot, storageBuffers, numBindings)
 }
 
 // func BindGPUFragmentStorageTextures(render_pass *GPURenderPass, first_slot uint32, storage_textures **GPUTexture, num_bindings uint32)  {
@@ -979,17 +1011,23 @@ func BindGPUVertexBuffers(renderPass *GPURenderPass, firstSlot uint32, bindings 
 //	sdlBindGPUVertexSamplers(render_pass, first_slot, texture_sampler_bindings, num_bindings)
 // }
 
-func BindGPUVertexStorageBuffers(render_pass *GPURenderPass, first_slot uint32, storage_buffers **GPUBuffer, num_bindings uint32) {
-	sdlBindGPUVertexStorageBuffers(render_pass, first_slot, storage_buffers, num_bindings)
+// [BindGPUVertexStorageBuffers] binds storage buffers for use on the vertex shader.
+//
+// [BindGPUVertexStorageBuffers]: https://wiki.libsdl.org/SDL3/SDL_BindGPUVertexStorageBuffers
+func BindGPUVertexStorageBuffers(renderPass *GPURenderPass, firstSlot uint32, storageBuffers **GPUBuffer, numBindings uint32) {
+	sdlBindGPUVertexStorageBuffers(renderPass, firstSlot, storageBuffers, numBindings)
 }
 
 // func BindGPUVertexStorageTextures(render_pass *GPURenderPass, first_slot uint32, storage_textures **GPUTexture, num_bindings uint32)  {
 //	sdlBindGPUVertexStorageTextures(render_pass, first_slot, storage_textures, num_bindings)
 // }
 
-// func BlitGPUTexture(command_buffer *GPUCommandBuffer, info *GPUBlitInfo)  {
-//	sdlBlitGPUTexture(command_buffer, info)
-// }
+// [BlitGPUTexture] performs a blit operation between two GPU textures.
+//
+// [BlitGPUTexture]: https://wiki.libsdl.org/SDL3/SDL_BlitGPUTexture
+func BlitGPUTexture(commandBuffer *GPUCommandBuffer, info *GPUBlitInfo) {
+	sdlBlitGPUTexture(commandBuffer, info)
+}
 
 // func CalculateGPUTextureFormatSize(format GPUTextureFormat, width uint32, height uint32, depth_or_layer_count uint32) uint32 {
 //	return sdlCalculateGPUTextureFormatSize(format, width, height, depth_or_layer_count)

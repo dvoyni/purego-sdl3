@@ -58,8 +58,8 @@ var (
 	// sdlBindGPUVertexSamplers                 func(*GPURenderPass, uint32, *GPUTextureSamplerBinding, uint32)
 	sdlBindGPUVertexStorageBuffers func(*GPURenderPass, uint32, **GPUBuffer, uint32)
 	// sdlBindGPUVertexStorageTextures          func(*GPURenderPass, uint32, **GPUTexture, uint32)
-	// sdlBlitGPUTexture                        func(*GPUCommandBuffer, *GPUBlitInfo)
-	sdlBlitSurface func(*Surface, *Rect, *Surface, *Rect) bool
+	sdlBlitGPUTexture func(*GPUCommandBuffer, *GPUBlitInfo)
+	sdlBlitSurface    func(*Surface, *Rect, *Surface, *Rect) bool
 	// sdlBlitSurface9Grid                      func(*Surface, *Rect, int32, int32, int32, int32, float32, ScaleMode, *Surface, *Rect) bool
 	// sdlBlitSurfaceScaled                     func(*Surface, *Rect, *Surface, *Rect, ScaleMode) bool
 	// sdlBlitSurfaceTiled                      func(*Surface, *Rect, *Surface, *Rect) bool
@@ -1284,7 +1284,7 @@ func init() {
 	// purego.RegisterLibFunc(&sdlBindGPUVertexSamplers, lib, "SDL_BindGPUVertexSamplers")
 	purego.RegisterLibFunc(&sdlBindGPUVertexStorageBuffers, lib, "SDL_BindGPUVertexStorageBuffers")
 	// purego.RegisterLibFunc(&sdlBindGPUVertexStorageTextures, lib, "SDL_BindGPUVertexStorageTextures")
-	// purego.RegisterLibFunc(&sdlBlitGPUTexture, lib, "SDL_BlitGPUTexture")
+	purego.RegisterLibFunc(&sdlBlitGPUTexture, lib, "SDL_BlitGPUTexture")
 	purego.RegisterLibFunc(&sdlBlitSurface, lib, "SDL_BlitSurface")
 	// purego.RegisterLibFunc(&sdlBlitSurface9Grid, lib, "SDL_BlitSurface9Grid")
 	// purego.RegisterLibFunc(&sdlBlitSurfaceScaled, lib, "SDL_BlitSurfaceScaled")
