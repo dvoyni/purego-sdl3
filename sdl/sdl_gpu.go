@@ -1223,9 +1223,9 @@ func GetNumGPUDrivers() int32 {
 //	return sdlGPUTextureFormatTexelBlockSize(format)
 // }
 
-// func GPUTextureSupportsFormat(device *GPUDevice, format GPUTextureFormat, type GPUTextureType, usage GPUTextureUsageFlags) bool {
-//	return sdlGPUTextureSupportsFormat(device, format, type, usage)
-// }
+func GPUTextureSupportsFormat(device *GPUDevice, format GPUTextureFormat, texType GPUTextureType, usage GPUTextureUsageFlags) bool {
+	return sdlGPUTextureSupportsFormat(device, format, texType, usage)
+}
 
 // func GPUTextureSupportsSampleCount(device *GPUDevice, format GPUTextureFormat, sample_count GPUSampleCount) bool {
 //	return sdlGPUTextureSupportsSampleCount(device, format, sample_count)

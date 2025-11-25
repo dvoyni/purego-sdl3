@@ -608,7 +608,7 @@ var (
 	// sdlGPUSupportsProperties                 func(PropertiesID) bool
 	// sdlGPUSupportsShaderFormats              func(GPUShaderFormat, string) bool
 	// sdlGPUTextureFormatTexelBlockSize        func(GPUTextureFormat) uint32
-	// sdlGPUTextureSupportsFormat              func(*GPUDevice, GPUTextureFormat, GPUTextureType, GPUTextureUsageFlags) bool
+	sdlGPUTextureSupportsFormat func(*GPUDevice, GPUTextureFormat, GPUTextureType, GPUTextureUsageFlags) bool
 	// sdlGPUTextureSupportsSampleCount         func(*GPUDevice, GPUTextureFormat, GPUSampleCount) bool
 	// sdlGUIDToString                          func(GUID, string, int32)
 	// sdlHapticEffectSupported                 func(*Haptic, *HapticEffect) bool
@@ -1834,7 +1834,7 @@ func init() {
 	// purego.RegisterLibFunc(&sdlGPUSupportsProperties, lib, "SDL_GPUSupportsProperties")
 	// purego.RegisterLibFunc(&sdlGPUSupportsShaderFormats, lib, "SDL_GPUSupportsShaderFormats")
 	// purego.RegisterLibFunc(&sdlGPUTextureFormatTexelBlockSize, lib, "SDL_GPUTextureFormatTexelBlockSize")
-	// purego.RegisterLibFunc(&sdlGPUTextureSupportsFormat, lib, "SDL_GPUTextureSupportsFormat")
+	purego.RegisterLibFunc(&sdlGPUTextureSupportsFormat, lib, "SDL_GPUTextureSupportsFormat")
 	// purego.RegisterLibFunc(&sdlGPUTextureSupportsSampleCount, lib, "SDL_GPUTextureSupportsSampleCount")
 	// purego.RegisterLibFunc(&sdlGUIDToString, lib, "SDL_GUIDToString")
 	// purego.RegisterLibFunc(&sdlHapticEffectSupported, lib, "SDL_HapticEffectSupported")
